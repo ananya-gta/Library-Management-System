@@ -12,7 +12,6 @@ import lombok.Data;
 
 
 @Entity
-@Data
 public class IssuedBookDetails {
 	
 	@Id
@@ -29,4 +28,77 @@ public class IssuedBookDetails {
 	
 	@OneToOne
 	private OverdueFee fine;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Book getIssuedBook() {
+		return issuedBook;
+	}
+
+	public void setIssuedBook(Book issuedBook) {
+		this.issuedBook = issuedBook;
+	}
+
+	public User getBorrower() {
+		return borrower;
+	}
+
+	public void setBorrower(User borrower) {
+		this.borrower = borrower;
+	}
+
+	public Date getIssuedDate() {
+		return issuedDate;
+	}
+
+	public void setIssuedDate(Date issuedDate) {
+		this.issuedDate = issuedDate;
+	}
+
+	public Date getReturnDate() {
+		return returnDate;
+	}
+
+	public void setReturnDate(Date returnDate) {
+		this.returnDate = returnDate;
+	}
+
+	public OverdueFee getFine() {
+		return fine;
+	}
+
+	public void setFine(OverdueFee fine) {
+		this.fine = fine;
+	}
+
+	public IssuedBookDetails(int id, Book issuedBook, User borrower, Date issuedDate, Date returnDate,
+			OverdueFee fine) {
+		super();
+		this.id = id;
+		this.issuedBook = issuedBook;
+		this.borrower = borrower;
+		this.issuedDate = issuedDate;
+		this.returnDate = returnDate;
+		this.fine = fine;
+	}
+
+	public IssuedBookDetails() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "IssuedBookDetails [id=" + id + ", issuedBook=" + issuedBook + ", borrower=" + borrower + ", issuedDate="
+				+ issuedDate + ", returnDate=" + returnDate + ", fine=" + fine + "]";
+	}
+	
+	
+	
 }

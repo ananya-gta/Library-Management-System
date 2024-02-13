@@ -16,31 +16,40 @@ public class BookService {
 	public List<Book> getAllBooks() {
 		return this.bookRepo.findAll();
 	}
-	
+
 	public String addBooks(Book book) {
 		this.bookRepo.save(book);
 		return "Book added successfully";
 	}
-	
+
 	public String removeBook(int bookId) {
 		this.bookRepo.deleteById(bookId);
 		return "Book removed successfully";
 	}
 
-	public List<Book> getByBookId(int bookId) {
-		return this.bookRepo.findByBookId(bookId);
+	public Book getByBookId(int bookId) {
+		return this.bookRepo.findById(bookId).get();
 	}
 
 	public List<Book> getByGenre(String genre) {
-		return this.bookRepo.findByGenre(genre);
+		return this.bookRepo.findByGenreIgnoreCase(genre);
 	}
 
 	public List<Book> getByAuthor(String author) {
-		return this.bookRepo.findByAuthor(author);
+		return this.bookRepo.findByAuthorIgnoreCase(author);
 	}
-	
+
 	public List<Book> getByTitle(String title) {
-		return this.bookRepo.findByTitle(title);
+		return this.bookRepo.findByTitleIgnoreCase(title);
+	}
+
+	public String updateBook(Book book) {
+		Book oldBookDetails = this.bookRepo.findById(book.getBookId()).get();
+		oldBookDetails.setAuthor(book.getAuthor());
+		oldBookDetails.setGenre(book.getGenre());
+		oldBookDetails.setTitle(book.getTitle());
+		this.bookRepo.save(oldBookDetails);
+		return "Book updated";
 	}
 
 }

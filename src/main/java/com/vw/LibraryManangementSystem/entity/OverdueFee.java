@@ -8,7 +8,6 @@ import jakarta.persistence.Id;
 import lombok.Data;
 
 @Entity
-@Data
 public class OverdueFee {
 	
 	@Id
@@ -16,4 +15,38 @@ public class OverdueFee {
 	private int transactionId;
 	private int fineAmount;
 	private boolean isPaid;
+	public int getTransactionId() {
+		return transactionId;
+	}
+	public void setTransactionId(int transactionId) {
+		this.transactionId = transactionId;
+	}
+	public int getFineAmount() {
+		return fineAmount;
+	}
+	public void setFineAmount(int fineAmount) {
+		this.fineAmount = fineAmount;
+	}
+	public boolean isPaid() {
+		return isPaid;
+	}
+	public void setPaid(boolean isPaid) {
+		this.isPaid = isPaid;
+	}
+	public OverdueFee(int transactionId, int fineAmount, boolean isPaid) {
+		super();
+		this.transactionId = transactionId;
+		this.fineAmount = fineAmount;
+		this.isPaid = isPaid;
+	}
+	public OverdueFee() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return "OverdueFee [transactionId=" + transactionId + ", fineAmount=" + fineAmount + ", isPaid=" + isPaid + "]";
+	}
+	
+	
 }
