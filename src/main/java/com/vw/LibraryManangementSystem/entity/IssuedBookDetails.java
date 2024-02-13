@@ -25,10 +25,11 @@ public class IssuedBookDetails {
 	private User borrower;
 	private Date issuedDate;
 	private Date returnDate;
+	private Date expectedReturnDate;
 	
 	@OneToOne
 	private OverdueFee fine;
-
+	
 	public int getId() {
 		return id;
 	}
@@ -77,15 +78,23 @@ public class IssuedBookDetails {
 		this.fine = fine;
 	}
 
-	public IssuedBookDetails(int id, Book issuedBook, User borrower, Date issuedDate, Date returnDate,
+	public IssuedBookDetails(Book issuedBook, User borrower, Date issuedDate, Date returnDate,
 			OverdueFee fine) {
 		super();
-		this.id = id;
 		this.issuedBook = issuedBook;
 		this.borrower = borrower;
 		this.issuedDate = issuedDate;
 		this.returnDate = returnDate;
 		this.fine = fine;
+		this.expectedReturnDate = new Date(issuedDate.getTime() + (14 * 24 * 60 * 60 * 1000));
+	}
+
+	public Date getExpectedReturnDate() {
+		return expectedReturnDate;
+	}
+
+	public void setExpectedReturnDate(Date expectedReturnDate) {
+		this.expectedReturnDate = expectedReturnDate;
 	}
 
 	public IssuedBookDetails() {

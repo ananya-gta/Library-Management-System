@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vw.LibraryManangementSystem.entity.Book;
 import com.vw.LibraryManangementSystem.entity.User;
+import com.vw.LibraryManangementSystem.services.IssuedBookDetailsService;
 import com.vw.LibraryManangementSystem.services.UserService;
 
 @RestController
@@ -22,6 +24,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private IssuedBookDetailsService issuedBookDetailsService;
 	
 	@GetMapping("/get")
 	public List<User> getUsers() {
@@ -40,5 +45,12 @@ public class UserController {
 	@DeleteMapping("/delete/{userId}")
 	public ResponseEntity<String> removeUserById(@PathVariable int userId) {
 		return new ResponseEntity<>(this.userService.removeUser(userId), HttpStatus.OK);
+	}
+	
+	@PostMapping("/issueBook/{userId}")
+	public String issueBook(@RequestBody Book book, @PathVariable int userId) {
+		
+		User borrower = getUserById(userId);
+		return this.issuedBookDetailsService.issueBook(book, borrower);
 	}
 }
