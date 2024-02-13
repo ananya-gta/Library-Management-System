@@ -13,20 +13,34 @@ public class BookService {
 	@Autowired
 	private BookRepo bookRepo;
 
-	public List<Book> findAll() {
+	public List<Book> getAllBooks() {
 		return this.bookRepo.findAll();
 	}
+	
+	public String addBooks(Book book) {
+		this.bookRepo.save(book);
+		return "Book added successfully";
+	}
+	
+	public String removeBook(int bookId) {
+		this.bookRepo.deleteById(bookId);
+		return "Book removed successfully";
+	}
 
-	public List<Book> findByBookId(int bookId) {
+	public List<Book> getByBookId(int bookId) {
 		return this.bookRepo.findByBookId(bookId);
 	}
 
-	public List<Book> findByGenre(String genre) {
+	public List<Book> getByGenre(String genre) {
 		return this.bookRepo.findByGenre(genre);
 	}
 
-	public List<Book> findByAuthor(String author) {
+	public List<Book> getByAuthor(String author) {
 		return this.bookRepo.findByAuthor(author);
+	}
+	
+	public List<Book> getByTitle(String title) {
+		return this.bookRepo.findByTitle(title);
 	}
 
 }

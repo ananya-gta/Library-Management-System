@@ -14,16 +14,20 @@ public class UserService {
 	@Autowired
 	private UserRepo userRepo;
 
-	private List<User> getUsers() {
+	public List<User> getUsers() {
 		return this.userRepo.findAll();
 	}
+	
+	public List<User> getUserById(int userId) {
+		return this.userRepo.findByUserId(userId);
+	}
 
-	private String addUser(User user) {
+	public String addUser(User user) {
 		this.userRepo.save(user);
 		return "User added successfully";
 	}
 
-	private String removeUser(int userId) {
+	public String removeUser(int userId) {
 		this.userRepo.deleteById(userId);
 		return "User removed successfully";
 	}
