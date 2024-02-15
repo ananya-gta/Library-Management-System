@@ -36,7 +36,7 @@ public class IssueBookController {
 	public List<IssuedBookDetails> getAllIssuedBookDetails() {
 		return this.issuedBookDetailsService.getAllIssuedBookDetails();
 	}
-	
+
 	@GetMapping("/returnBook/{issuedBookId}")
 	public String returnBook(@PathVariable int issuedBookId) {
 		return this.issuedBookDetailsService.returnBook(issuedBookId);
