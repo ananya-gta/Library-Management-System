@@ -33,9 +33,8 @@ public class OverdueFee {
 	public void setPaid(boolean isPaid) {
 		this.isPaid = isPaid;
 	}
-	public OverdueFee(int transactionId, int fineAmount, boolean isPaid) {
+	public OverdueFee(int fineAmount, boolean isPaid) {
 		super();
-		this.transactionId = transactionId;
 		this.fineAmount = fineAmount;
 		this.isPaid = isPaid;
 	}

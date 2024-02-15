@@ -18,7 +18,7 @@ public class IssuedBookDetails {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@OneToOne
+	@ManyToOne
 	private Book issuedBook;
 	
 	@ManyToOne
