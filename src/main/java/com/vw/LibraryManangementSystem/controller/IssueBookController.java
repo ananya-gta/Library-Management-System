@@ -41,5 +41,10 @@ public class IssueBookController {
 	public String returnBook(@PathVariable int issuedBookId) {
 		return this.issuedBookDetailsService.returnBook(issuedBookId);
 	}
+	
+	@GetMapping("/getDetailsByUserId/{userId}")
+	public List<IssuedBookDetails> getIssuedBookDetailsByUserId(@PathVariable int userId) {
+		return this.issuedBookDetailsService.getIssuedBookDetailsByUserId(userId);
+	}
 
 }

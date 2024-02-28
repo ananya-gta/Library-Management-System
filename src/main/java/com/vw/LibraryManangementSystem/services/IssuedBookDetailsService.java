@@ -15,6 +15,7 @@ import com.vw.LibraryManangementSystem.entity.User;
 import com.vw.LibraryManangementSystem.repository.BookRepo;
 import com.vw.LibraryManangementSystem.repository.IssuedBookDetailsRepo;
 import com.vw.LibraryManangementSystem.repository.OverdueFeeRepo;
+import com.vw.LibraryManangementSystem.repository.UserRepo;
 
 @Service
 public class IssuedBookDetailsService {
@@ -27,6 +28,9 @@ public class IssuedBookDetailsService {
 
 	@Autowired
 	private BookRepo bookRepo;
+	
+	@Autowired
+	private UserRepo userRepo;
 
 	public String issueBook(Book book, User user) {
 
@@ -74,7 +78,12 @@ public class IssuedBookDetailsService {
 		updateAvailability.setAvailable(true);
 		this.bookRepo.save(updateAvailability);
 
-		return "The book: " + updateAvailability.getTitle() + " is returned on : " + new Date();
+		return "The book: " + updateAvailability.getTitle() + " is returned on : " + new Date() + ". Fine: "
+				+ ((dueDays < 0) ? "" : (int) dueDays * 5);
+	}
+	
+	public List<IssuedBookDetails> getIssuedBookDetailsByUserId(int userId) {
+		return this.issuedBookDetailsRepo.findByBorrower(this.userRepo.findById(userId).get());
 	}
 
 }
