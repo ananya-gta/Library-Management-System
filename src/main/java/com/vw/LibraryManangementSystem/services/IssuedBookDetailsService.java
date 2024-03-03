@@ -28,12 +28,24 @@ public class IssuedBookDetailsService {
 
 	@Autowired
 	private BookRepo bookRepo;
-	
+
 	@Autowired
 	private UserRepo userRepo;
 
 	public String issueBook(Book book, User user) {
 
+		List<IssuedBookDetails> bookDetails = this.getIssuedBookDetailsByUserId(user.getUserId());
+		int totalFine = 0;
+		for (IssuedBookDetails bookDetail : bookDetails) {
+			if (bookDetail.getFine() != null) {
+				totalFine += bookDetail.getFine().getFineAmount();
+			}
+		}
+		
+		if (totalFine > 100) {
+			return "You cannot issue the book. You need to pay your overdue fine first.";
+		}
+		
 		Book issuedBook = this.bookRepo.findById(book.getBookId()).get();
 
 		if (!issuedBook.isAvailable()) {
@@ -47,7 +59,7 @@ public class IssuedBookDetailsService {
 
 		issuedBook.setAvailable(false);
 		this.bookRepo.save(issuedBook);
-		return book.getTitle() + " issued by user : " + user.getName() + ". You should return the book by "
+		return book.getTitle() + " issued by user - " + user.getName() + ". You should return the book by "
 				+ details.getExpectedReturnDate();
 
 	}
@@ -78,10 +90,10 @@ public class IssuedBookDetailsService {
 		updateAvailability.setAvailable(true);
 		this.bookRepo.save(updateAvailability);
 
-		return "The book: " + updateAvailability.getTitle() + " is returned on : " + new Date() + ". Fine: "
+		return "The book- " + updateAvailability.getTitle() + " is returned on- " + new Date() + ". Fine- "
 				+ ((dueDays < 0) ? "" : (int) dueDays * 5);
 	}
-	
+
 	public List<IssuedBookDetails> getIssuedBookDetailsByUserId(int userId) {
 		return this.issuedBookDetailsRepo.findByBorrower(this.userRepo.findById(userId).get());
 	}

@@ -39,6 +39,7 @@ public class IssueBookController {
 
 	@GetMapping("/returnBook/{issuedBookId}")
 	public String returnBook(@PathVariable int issuedBookId) {
+		System.out.println("iddd  " + issuedBookId);
 		return this.issuedBookDetailsService.returnBook(issuedBookId);
 	}
 	
